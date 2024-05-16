@@ -1,0 +1,18 @@
+- convert the .yml file to jaon file for better understanding the code written in it.
+- when we CI using github action then the ubuntu machine run on github cloud or microsoft cloud clone the repo , install all dependinces and run all task aur test if it succeed then push new PR in our main branch .
+
+
+
+- it also run  npm run lint:check it means -
+
+ Linting in software development refers to the process of analyzing source code to detect potential errors, bugs, stylistic inconsistencies, and other issues. It's named after the lint program that was originally designed to identify suspicious and non-portable constructs in C programming language code.
+Linting tools are now available for various programming languages, including JavaScript, Python, Java, and many others. These tools analyze code against a set of predefined rules or guidelines, often based on best practices or coding standards specific to the language or the project.
+Linters can catch a wide range of issues, including:
+1. Syntax errors: Detecting mistakes such as missing semicolons, parentheses mismatches, or incorrect variable references.
+2. Code style violations: Identifying deviations from coding conventions or style guides, such as indentation, naming conventions, or code formatting.
+3. Potential bugs: Highlighting constructs that could lead to runtime errors or unexpected behavior, such as unused variables, unreachable code, or ambiguous expressions.
+4. Security vulnerabilities: Flagging insecure coding patterns or potential vulnerabilities, such as using weak cryptographic algorithms or not sanitizing user input.
+Linting helps improve code quality, maintainability, and readability by enforcing consistent coding practices and identifying issues early in the development process. It's often integrated into development workflows through tools like IDE plugins, build systems, or version control hooks, enabling developers to identify and fix problems quickly before they become more significant issues.
+
+
+- 
