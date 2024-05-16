@@ -1,0 +1,45 @@
+name: Build and Deploy to Docker Hub
+
+on:
+  push:
+    branches:
+      - master                # run this deploy.yml file if some push event happen on master branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check Out Repo         # it will checkout the code from the repo or clone the  repo
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}   # it take it from the github repo setting -> secrets
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Build and Push Docker image
+      uses: docker/build-push-action@v2
+      with:                    # variable for docker/build-push-action@v2
+        context: .             # The path to the Dockerfile in root folder 
+        file: ./docker/Dockerfile.user     # The path to the Dockerfile in root folder
+        push: true             # Push the image to Docker Hub
+        tags: sumitkumar104/tutorial_cicd:latest  # Replace with your Docker Hub username and repository  
+
+    - name: Verify Pushed Image
+      run: docker pull sumitkumar104/tutorial_cicd:latest  # Replace with your Docker Hub username and repository
+
+
+      # for this first create a machine in EC2 and then create a key pair and then add the key to the github repo setting -> secrets
+    - name: Deploy to EC2          # or deploy on GCP cloud run , ecr,ecs etc
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          sudo docker pull sumitkumar104/tutorial_cicd:latest 
+          sudo docker stop web-app || true
+          sudo docker rm web-app || true
+          sudo docker run -d --name web-app -p 3005:3000 sumitkumar104/tutorial_cicd:latest 
+
